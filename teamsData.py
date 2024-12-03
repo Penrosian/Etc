@@ -1,4 +1,6 @@
 import random
+data = open("data.txt", "a")
+data.write("\nStart of new data")
 
 names = ["Benjamin", "Ashton", "Darin", "Jack"]
 preference = ["Ashton", "Benjamin", "Jack", "Darin"]
@@ -113,3 +115,5 @@ for i in range(teams):
         if x <= split * (i + 1) and x > split * i:
             result += names[nums.index(x)] + " "
     print(result)
+data.write("\n")
+data.close()
