@@ -1,4 +1,5 @@
 import keyboard
+from time import sleep
 painting_order = open('paintingorder.txt', 'r').read()
 painting_order = painting_order.strip().split('|')
 print(painting_order)
@@ -33,6 +34,7 @@ while True:
             print_string += '^'
     print(print_string)
 
+    sleep(0.2)
     while True:
         if keyboard.is_pressed('right'):
             selector += 1
