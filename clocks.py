@@ -1,4 +1,4 @@
-clocks = [0, 0, 0, 0, 0, 0, 0, 0]
+clocks = [720, 720, 720, 720, 720, 720, 720, 720]
 
 def verify():
     # All times are unique
@@ -42,7 +42,7 @@ def verify():
         return False
     print("Clock #7 reverse check passed")
     # All times must be in ascending order
-    if clocks == sorted(clocks):
+    if clocks != sorted(clocks):
         print("Ascending order check failed!")
         return False
     print("Ascending order check passed")
@@ -52,8 +52,6 @@ while True:
     print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
     converted_times = []
     for clock in clocks:
-        if clock // 60 == 0:
-            clock += 720
         converted_times.append(str(clock // 60) + ":" + str(clock % 60).zfill(2))
     print("Current times:", converted_times)
     ans = input("Select an action:\n\
@@ -85,11 +83,7 @@ while True:
                 new_value[1] = int(new_value[1])
                 if new_value[0] < 1 or new_value[0] > 12 or new_value[1] < 0 or new_value[1] > 59:
                     raise ValueError()
-                new_minutes = 0
-                if new_value[0] == 12:
-                    new_minutes = 0
-                else:
-                    new_minutes = new_value[0] * 60
+                new_minutes = new_value[0] * 60
                 new_minutes += new_value[1]
                 clocks[clock_number - 1] = new_minutes
             except:
