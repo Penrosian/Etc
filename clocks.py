@@ -41,6 +41,11 @@ def verify():
         print("Clock #7 reverse check failed")
         return False
     print("Clock #7 reverse check passed")
+    # All times must be in ascending order
+    if clocks == sorted(clocks):
+        print("Ascending order check failed!")
+        return False
+    print("Ascending order check passed")
     return True
         
 while True:
@@ -65,6 +70,7 @@ while True:
                   3. Clock #4's neighbors must both contain a 7\n\
                   4. No clocks can contain 1, 2, 3, or 4\n\
                   5. Clock #7 must be set to a time that contains the same three numbers of another clock, but in reverse order\n\
+                  6. All times must be in ascending order\n\
                   Press enter to continue...")
         case "clock":
             clock_number = input("Which clock would you like to change? (1-8) ")
