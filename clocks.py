@@ -1,35 +1,51 @@
 clocks = [720, 720, 720, 720, 720, 720, 720, 720]
 
 def verify():
+    result = True
     # All times are unique
+    check = True
     checked_times = []
     for clock in clocks:
         if clock in checked_times:
             print("Unique check failed!")
-            return False
+            result = False
+            check = False
+            break
         checked_times.append(clock)
-    print("Unique check passed")
+    if check:
+        print("Unique check passed")
     # 5 clocks must be on the hour
+    check = True
     count = 0
     for clock in clocks:
         if clock % 60 == 0:
             count += 1
     if count != 5:
         print("On the hour check failed!")
-        return False
-    print("On the hour check passed")
+        result = False
+        check = False
+    if check:
+        print("On the hour check passed")
     # Clock #4's neighbors must contain a 7
+    check = True
     if "7" not in converted_times[2] or "7" not in converted_times[4]:
         print("Clock #4 neighbor check failed!")
-        return False
-    print("Clock #4 neighbor check passed")
+        result = False
+        check = False
+    if check:
+        print("Clock #4 neighbor check passed")
     # None should be set to times that contain the number 1, 2, 3, or 4
+    check = True
     for time in converted_times:
         if "1" in time or "2" in time or "3" in time or "4" in time:
             print("No 1, 2, 3, or 4 check failed!")
-            return False
-    print("No 1, 2, 3, or 4 check passed")
+            result = False
+            check = False
+            break
+    if check:
+        print("No 1, 2, 3, or 4 check passed")
     # Clock #7 should be set to a time that contains the same three numbers of another clock here but in reverse order
+    check = True
     target_time = converted_times[6].replace(":", "")
     i = 0
     while i < len(converted_times):
@@ -39,14 +55,19 @@ def verify():
         i += 1
     else:
         print("Clock #7 reverse check failed")
-        return False
-    print("Clock #7 reverse check passed")
+        result = False
+        check = False
+    if check:
+        print("Clock #7 reverse check passed")
     # All times must be in ascending order
+    check = True
     if clocks != sorted(clocks):
         print("Ascending order check failed!")
-        return False
-    print("Ascending order check passed")
-    return True
+        result = False
+        check = False
+    if check:
+        print("Ascending order check passed")
+    return result
         
 while True:
     print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
