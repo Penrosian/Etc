@@ -1,13 +1,13 @@
 ﻿string[] lines = File.ReadAllLines("/home/penrosian/repos/csc221/other/curses_sylveon/sylveon_big_colored.txt");
 
-int[] white = new int[] {255, 255, 255};
-int[] pink = new int[] {239, 154, 172};
-int[] lightBlue = new int[] {157, 223, 250};
-int[] blue = new int[] {29, 153, 243};
-int[] gray = new int[] {179, 179, 179};
+int[] white = [255, 255, 255];
+int[] pink = [239, 154, 172];
+int[] lightBlue = [157, 223, 250];
+int[] blue = [29, 153, 243];
+int[] gray = [179, 179, 179];
 
 foreach (string line in lines) {
-    string new_line = String.Join("$1", line);
+    string new_line = string.Join("$1", line);
     string[] segments = new_line.Split('$');
     foreach (string segment in segments) {
         if (segment.StartsWith("1")) {
