@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml;
@@ -16,6 +17,10 @@ public class TextureAtlas
     /// Gets or Sets the source texture represented by this texture atlas.
     /// </summary>
     public Texture2D Texture { get; set; }
+    
+    // Stores animations added to this atlas.
+    private Dictionary<string, Animation> _animations;
+
 
     /// <summary>
     /// Creates a new texture atlas.
@@ -23,6 +28,7 @@ public class TextureAtlas
     public TextureAtlas()
     {
         _regions = [];
+        _animations = [];
     }
 
     /// <summary>
@@ -33,6 +39,7 @@ public class TextureAtlas
     {
         Texture = texture;
         _regions = [];
+        _animations = [];
     }
 
     /// <summary>
@@ -70,11 +77,42 @@ public class TextureAtlas
     }
 
     /// <summary>
+    /// Adds the given animation to this texture atlas with the specified name.
+    /// </summary>
+    /// <param name="animationName">The name of the animation to add.</param>
+    /// <param name="animation">The animation to add.</param>
+    public void AddAnimation(string animationName, Animation animation)
+    {
+        _animations.Add(animationName, animation);
+    }
+
+    /// <summary>
+    /// Gets the animation from this texture atlas with the specified name.
+    /// </summary>
+    /// <param name="animationName">The name of the animation to retrieve.</param>
+    /// <returns>The animation with the specified name.</returns>
+    public Animation GetAnimation(string animationName)
+    {
+        return _animations[animationName];
+    }
+
+    /// <summary>
+    /// Removes the animation with the specified name from this texture atlas.
+    /// </summary>
+    /// <param name="animationName">The name of the animation to remove.</param>
+    /// <returns>true if the animation is removed successfully; otherwise, false.</returns>
+    public bool RemoveAnimation(string animationName)
+    {
+        return _animations.Remove(animationName);
+    }
+
+    /// <summary>
     /// Removes all regions from this texture atlas.
     /// </summary>
     public void Clear()
     {
         _regions.Clear();
+        _animations.Clear();
     }
 
     /// <summary>
@@ -129,7 +167,68 @@ public class TextureAtlas
             }
         }
 
+        // The <Animations> element contains individual <Animation> elements, each one describing
+        // a different animation within the atlas.
+        //
+        // Example:
+        // <Animations>
+        //      <Animation name="animation" delay="100">
+        //          <Frame region="spriteOne" />
+        //          <Frame region="spriteTwo" />
+        //      </Animation>
+        // </Animations>
+        //
+        // So we retrieve all of the <Animation> elements then loop through each one
+        // and generate a new Animation instance from it and add it to this atlas.
+        var animationElements = root.Element("Animations").Elements("Animation");
+
+        if (animationElements != null)
+        {
+            foreach (var animationElement in animationElements)
+            {
+                string name = animationElement.Attribute("name")?.Value;
+                float delayInMilliseconds = float.Parse(animationElement.Attribute("delay")?.Value ?? "0");
+                TimeSpan delay = TimeSpan.FromMilliseconds(delayInMilliseconds);
+
+                List<TextureRegion> frames = new List<TextureRegion>();
+
+                var frameElements = animationElement.Elements("Frame");
+
+                if (frameElements != null)
+                {
+                    foreach (var frameElement in frameElements)
+                    {
+                        string regionName = frameElement.Attribute("region").Value;
+                        TextureRegion region = atlas.GetRegion(regionName);
+                        frames.Add(region);
+                    }
+                }
+
+                Animation animation = new Animation(frames, delay);
+                atlas.AddAnimation(name, animation);
+            }
+        }
+        
         return atlas;
     }
 
+    /// <summary>
+    /// Creates a new sprite using the region from this texture atlas with the specified name.
+    /// </summary>
+    /// <param name="regionName">The name of the region to create the sprite with.</param>
+    /// <returns>A new Sprite using the texture region with the specified name.</returns>
+    public Sprite CreateSprite(string regionName)
+    {
+        return new Sprite(GetRegion(regionName));
+    }
+
+    /// <summary>
+    /// Creates a new animated sprite using the animation from this texture atlas with the specified name.
+    /// </summary>
+    /// <param name="animationName">The name of the animation to use.</param>
+    /// <returns>A new AnimatedSprite using the animation with the specified name.</returns>
+    public AnimatedSprite CreateAnimatedSprite(string animationName)
+    {
+        return new AnimatedSprite(GetAnimation(animationName));
+    }
 }
