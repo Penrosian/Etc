@@ -1,0 +1,15 @@
+/home/penrosian/repos/Etc/sylveon/bin/Debug/net9.0/sylveon
+/home/penrosian/repos/Etc/sylveon/bin/Debug/net9.0/sylveon.deps.json
+/home/penrosian/repos/Etc/sylveon/bin/Debug/net9.0/sylveon.runtimeconfig.json
+/home/penrosian/repos/Etc/sylveon/bin/Debug/net9.0/sylveon.dll
+/home/penrosian/repos/Etc/sylveon/bin/Debug/net9.0/sylveon.pdb
+/home/penrosian/repos/Etc/sylveon/obj/Debug/net9.0/sylveon.GeneratedMSBuildEditorConfig.editorconfig
+/home/penrosian/repos/Etc/sylveon/obj/Debug/net9.0/sylveon.AssemblyInfoInputs.cache
+/home/penrosian/repos/Etc/sylveon/obj/Debug/net9.0/sylveon.AssemblyInfo.cs
+/home/penrosian/repos/Etc/sylveon/obj/Debug/net9.0/sylveon.csproj.CoreCompileInputs.cache
+/home/penrosian/repos/Etc/sylveon/obj/Debug/net9.0/sylveon.sourcelink.json
+/home/penrosian/repos/Etc/sylveon/obj/Debug/net9.0/sylveon.dll
+/home/penrosian/repos/Etc/sylveon/obj/Debug/net9.0/refint/sylveon.dll
+/home/penrosian/repos/Etc/sylveon/obj/Debug/net9.0/sylveon.pdb
+/home/penrosian/repos/Etc/sylveon/obj/Debug/net9.0/sylveon.genruntimeconfig.cache
+/home/penrosian/repos/Etc/sylveon/obj/Debug/net9.0/ref/sylveon.dll
