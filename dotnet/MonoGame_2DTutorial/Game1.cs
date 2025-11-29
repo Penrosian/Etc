@@ -2,12 +2,14 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame_GameLibrary;
+using MonoGame_GameLibrary.Graphics;
 
 namespace MonoGame_2DTutorial;
 
 public class Game1 : Core
 {
-    private Texture2D _logo;
+    private TextureRegion _slime;
+    private TextureRegion _bat;
 
     public Game1() : base("Dungeon Slime", 1280, 720, false)
     {
@@ -24,7 +26,9 @@ public class Game1 : Core
 
     protected override void LoadContent()
     {
-        _logo = Content.Load<Texture2D>("images/logo");
+        TextureAtlas atlas = TextureAtlas.FromFile(Content, "images/atlas-definition.xml");
+        _slime = atlas.GetRegion("slime");
+        _bat = atlas.GetRegion("bat");
     }
 
     protected override void Update(GameTime gameTime)
@@ -41,21 +45,11 @@ public class Game1 : Core
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
-        SpriteBatch.Begin();
-        SpriteBatch.Draw(
-            _logo, 
-            new Vector2(
-                Window.ClientBounds.Width, 
-                Window.ClientBounds.Height) 
-            * 0.5f, 
-            null,
-            Color.White,
-            0.0f,
-            Helper.GetTextureCenter(_logo),
-            1.0f,
-            SpriteEffects.None,
-            0.0f
-        );
+        SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
+        
+        _slime.Draw(SpriteBatch, Vector2.Zero, Color.White, 0.0f, Vector2.One, 4.0f, SpriteEffects.None, 0.0f);
+        _bat.Draw(SpriteBatch, new Vector2(_slime.Width * 4.0f + 10, 0), Color.White, 0.0f, Vector2.One, 4.0f, SpriteEffects.None, 0.0f);
+
         SpriteBatch.End();
 
         base.Draw(gameTime);

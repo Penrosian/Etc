@@ -1,5 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGame_GameLibrary.Graphics;
 
 namespace MonoGame_GameLibrary
 {
@@ -12,6 +13,10 @@ namespace MonoGame_GameLibrary
         public static Vector2 GetTextureCenter(Rectangle rectangle)
         {
             return new Vector2(rectangle.Width, rectangle.Height) * 0.5f;
+        }
+        public static Vector2 GetTextureCenter(TextureRegion region)
+        {
+            return new Vector2(region.Width, region.Height) * 0.5f;
         }
     }
 }
