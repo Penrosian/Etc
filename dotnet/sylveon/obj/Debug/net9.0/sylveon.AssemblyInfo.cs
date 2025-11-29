@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("sylveon")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e0f5929ebfe7463e2853fa4d8f1fa117074544d2")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6669247baea0151dfcd104eafeb9b2495bd34397")]
 [assembly: System.Reflection.AssemblyProductAttribute("sylveon")]
 [assembly: System.Reflection.AssemblyTitleAttribute("sylveon")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
