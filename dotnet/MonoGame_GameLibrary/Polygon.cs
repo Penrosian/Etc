@@ -27,7 +27,10 @@ public readonly struct Polygon(Point[] points) : IEquatable<Polygon>
     /// </summary>
     public readonly bool IsEmpty => Vertices.Length == 0;
 
-    private Vector2[] getEdges()
+    /// <summary>
+    /// Gets the edges of the polygon as vectors. The vectors represent the direction of the edges only.
+    /// </summary>
+    public Vector2[] GetEdges()
     {
         Vector2[] edges = new Vector2[Vertices.Length];
         for (int i = 0; i < Vertices.Length; i++)
@@ -38,7 +41,7 @@ public readonly struct Polygon(Point[] points) : IEquatable<Polygon>
             }
             else
             {
-                edges[i] = new Vector2(Vertices[i+1].X - Vertices[i].X, Vertices[i+1].Y - Vertices[i].Y);
+                edges[i] = new Vector2(Vertices[i + 1].X - Vertices[i].X, Vertices[i + 1].Y - Vertices[i].Y);
             }
         }
         return edges;
@@ -75,8 +78,8 @@ public readonly struct Polygon(Point[] points) : IEquatable<Polygon>
         int? amax;
         int? bmin;
         int? bmax;
-        Vector2[] Edges = getEdges();
-        Vector2[] otherEdges = other.getEdges();
+        Vector2[] Edges = GetEdges();
+        Vector2[] otherEdges = other.GetEdges();
         for (int i = 0; i < Edges.Length; i++)
         {
             perpindicularStack[i] = new Vector2(-Edges[i].Y, Edges[i].X);
@@ -103,7 +106,7 @@ public readonly struct Polygon(Point[] points) : IEquatable<Polygon>
                 if (bmin == null || dot < bmin) bmin = dot;
                 if (bmax == null || dot > bmax) bmax = dot;
             }
-            if (bmin == null || bmax == null || amin == null || amax == null) 
+            if (bmin == null || bmax == null || amin == null || amax == null)
             {
                 throw new InvalidOperationException("Unable to calculate polygon intersection. Make sure both polygons are convex.");
             }
