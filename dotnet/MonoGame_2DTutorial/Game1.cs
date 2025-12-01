@@ -31,6 +31,14 @@ public class Game1 : Core
 
     private Song _themeSong;
 
+    private SpriteFont _font;
+
+    private int _score;
+
+    private Vector2 _scoreTextPosition;
+
+    private Vector2 _scoreTextOrigin;
+
     private const float MOVEMENT_SPEED = 5.0f;
     public Game1() : base("Dungeon Slime", 1280, 720, true)
     {
@@ -62,6 +70,10 @@ public class Game1 : Core
         AssignRandomBatVelocity();
 
         Audio.PlaySong(_themeSong);
+
+        _scoreTextPosition = new Vector2(_roomBounds.Left, _tilemap.TileHeight * 0.5f);
+        float scoreTextYOrigin = _font.MeasureString("Score").Y * 0.5f;
+        _scoreTextOrigin = new Vector2(0, scoreTextYOrigin);
     }
 
     protected override void LoadContent()
@@ -80,6 +92,8 @@ public class Game1 : Core
 
         // Load the background theme music.
         _themeSong = Content.Load<Song>("audio/theme");
+
+        _font = Content.Load<SpriteFont>("fonts/04B_30");
     }
 
     protected override void Update(GameTime gameTime)
@@ -194,6 +208,8 @@ public class Game1 : Core
             AssignRandomBatVelocity();
 
             Audio.PlaySoundEffect(_collectSoundEffect);
+
+            _score += 100;
         }
 
         base.Update(gameTime);
@@ -320,6 +336,18 @@ public class Game1 : Core
 
         _slime.Draw(SpriteBatch, _slimePosition);
         _bat.Draw(SpriteBatch, _batPosition);
+
+        SpriteBatch.DrawString(
+            _font,              // spriteFont
+            $"Score: {_score}", // text
+            _scoreTextPosition, // position
+            Color.White,        // color
+            0.0f,               // rotation
+            _scoreTextOrigin,   // origin
+            1.0f,               // scale
+            SpriteEffects.None, // effects
+            0.0f                // layerDepth
+        );
 
         SpriteBatch.End();
 
