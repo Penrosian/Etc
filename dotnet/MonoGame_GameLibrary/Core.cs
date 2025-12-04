@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame_GameLibrary.Audio;
 using MonoGame_GameLibrary.Input;
+using MonoGame_GameLibrary.Scenes;
+
 
 namespace MonoGame_GameLibrary;
 
@@ -17,10 +19,14 @@ public class Core : Game
     /// </summary>
     public static Core Instance => s_instance;
 
+    private static Scene s_activeScene;
+    private static Scene s_nextScene;
+
     /// <summary>
     /// Gets the graphics device manager to control the presentation of graphics.
     /// </summary>
-    public static GraphicsDeviceManager Graphics { get; private set; }
+    public static GraphicsDeviceManager Graphics
+    { get; private set; }
 
     /// <summary>
     /// Gets the graphics device used to create graphical resources and perform primitive rendering.
@@ -133,11 +139,46 @@ public class Core : Game
         // Update the audio controller.
         Audio.Update();
 
-        if (ExitOnEscape && Input.Keyboard.IsKeyDown(Keys.Escape))
+        if (ExitOnEscape && Input.Keyboard.WasKeyJustPressed(Keys.Escape))
         {
             Exit();
         }
 
+        if (s_nextScene != null)
+        {
+            TransitionScene();
+        }
+
+        s_activeScene?.Update(gameTime);
+
         base.Update(gameTime);
+    }
+
+    protected override void Draw(GameTime gameTime)
+    {
+        s_activeScene?.Draw(gameTime);
+
+        base.Draw(gameTime);
+    }
+
+    public static void ChangeScene(Scene next)
+    {
+        if (s_activeScene != next)
+        {
+            s_nextScene = next;
+        }
+    }
+
+    private static void TransitionScene()
+    {
+        s_activeScene?.Dispose();
+
+        GC.Collect();
+
+        s_activeScene = s_nextScene;
+
+        s_nextScene = null;
+
+        s_activeScene?.Initialize();
     }
 }
