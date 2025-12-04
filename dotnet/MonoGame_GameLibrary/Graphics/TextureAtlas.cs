@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace MonoGame_GameLibrary.Graphics;
 
-public class TextureAtlas 
+public class TextureAtlas
 {
     private Dictionary<string, TextureRegion> _regions;
 
@@ -17,7 +17,7 @@ public class TextureAtlas
     /// Gets or Sets the source texture represented by this texture atlas.
     /// </summary>
     public Texture2D Texture { get; set; }
-    
+
     // Stores animations added to this atlas.
     private Dictionary<string, Animation> _animations;
 
@@ -52,7 +52,7 @@ public class TextureAtlas
     /// <param name="height">The height, in pixels, of the region.</param>
     public void AddRegion(string name, int x, int y, int width, int height)
     {
-        TextureRegion region = new TextureRegion(Texture, x, y, width, height);
+        TextureRegion region = new(Texture, x, y, width, height);
         _regions.Add(name, region);
     }
 
@@ -190,7 +190,7 @@ public class TextureAtlas
                 float delayInMilliseconds = float.Parse(animationElement.Attribute("delay")?.Value ?? "0");
                 TimeSpan delay = TimeSpan.FromMilliseconds(delayInMilliseconds);
 
-                List<TextureRegion> frames = new List<TextureRegion>();
+                List<TextureRegion> frames = new();
 
                 var frameElements = animationElement.Elements("Frame");
 
@@ -204,11 +204,11 @@ public class TextureAtlas
                     }
                 }
 
-                Animation animation = new Animation(frames, delay);
+                Animation animation = new(frames, delay);
                 atlas.AddAnimation(name, animation);
             }
         }
-        
+
         return atlas;
     }
 

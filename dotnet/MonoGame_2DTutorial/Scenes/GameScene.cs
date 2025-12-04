@@ -134,7 +134,7 @@ public class GameScene : Scene
         CheckGamePadInput();
 
         // Creating a bounding circle for the slime.
-        Circle slimeBounds = new Circle(
+        Circle slimeBounds = new(
             (int)(_slimePosition.X + (_slime.Width * 0.5f)),
             (int)(_slimePosition.Y + (_slime.Height * 0.5f)),
             (int)(_slime.Width * 0.5f)
@@ -165,7 +165,7 @@ public class GameScene : Scene
         Vector2 newBatPosition = _batPosition + _batVelocity;
 
         // Create a bounding circle for the bat.
-        Circle batBounds = new Circle(
+        Circle batBounds = new(
             (int)(newBatPosition.X + (_bat.Width * 0.5f)),
             (int)(newBatPosition.Y + (_bat.Height * 0.5f)),
             (int)(_bat.Width * 0.5f)
@@ -241,7 +241,7 @@ public class GameScene : Scene
         // Convert angle to a direction vector.
         float x = (float)Math.Cos(angle);
         float y = (float)Math.Sin(angle);
-        Vector2 direction = new Vector2(x, y);
+        Vector2 direction = new(x, y);
 
         // Multiply the direction vector by the movement speed
         _batVelocity = direction * MOVEMENT_SPEED;

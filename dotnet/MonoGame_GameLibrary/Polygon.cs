@@ -54,12 +54,12 @@ public readonly struct Polygon(Point[] points) : IEquatable<Polygon>
     /// <returns>true if the other rectangle intersects with this polygon; otherwise, false.</returns>
     public bool Intersects(Rectangle rectangle)
     {
-        Polygon rectPoly = new Polygon(new Point[]
+        Polygon rectPoly = new(new Point[]
         {
-            new Point(rectangle.Left, rectangle.Top),
-            new Point(rectangle.Right, rectangle.Top),
-            new Point(rectangle.Right, rectangle.Bottom),
-            new Point(rectangle.Left, rectangle.Bottom)
+            new(rectangle.Left, rectangle.Top),
+            new(rectangle.Right, rectangle.Top),
+            new(rectangle.Right, rectangle.Bottom),
+            new(rectangle.Left, rectangle.Bottom)
         });
         return Intersects(rectPoly);
     }

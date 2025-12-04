@@ -25,8 +25,7 @@ public class Core : Game
     /// <summary>
     /// Gets the graphics device manager to control the presentation of graphics.
     /// </summary>
-    public static GraphicsDeviceManager Graphics
-    { get; private set; }
+    public static GraphicsDeviceManager Graphics { get; private set; }
 
     /// <summary>
     /// Gets the graphics device used to create graphical resources and perform primitive rendering.
